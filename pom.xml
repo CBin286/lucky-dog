@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.2.6.RELEASE</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+    <groupId>com.example</groupId>
+    <artifactId>demo</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>war</packaging>
+    <name>SpringBoot</name>
+    <description>Demo project for Spring Boot</description>
+
+    <properties>
+        <java.version>1.8</java.version>
+        <log4j.version>1.2.16</log4j.version>
+        <aspectjweaver.version>1.8.13</aspectjweaver.version>
+    </properties>
+
+    <!--    <dependencies>-->
+    <!--        <dependency>-->
+    <!--            <groupId>org.springframework.boot</groupId>-->
+    <!--            <artifactId>spring-boot-starter-web</artifactId>-->
+    <!--        </dependency>-->
+    <!--        &lt;!&ndash;gson&ndash;&gt;-->
+    <!--        <dependency>-->
+    <!--            <groupId>com.google.code.gson</groupId>-->
+    <!--            <artifactId>gson</artifactId>-->
+    <!--            <version>2.8.6</version>-->
+    <!--        </dependency>-->
+    <!--&lt;!&ndash;        内嵌TomCat&ndash;&gt;-->
+    <!--        <dependency>-->
+    <!--            <groupId>org.springframework.boot</groupId>-->
+    <!--            <artifactId>spring-boot-starter-tomcat</artifactId>-->
+    <!--            <scope>provided</scope>-->
+    <!--        </dependency>-->
+    <!--        <dependency>-->
+    <!--            <groupId>org.springframework.boot</groupId>-->
+    <!--            <artifactId>spring-boot-starter-test</artifactId>-->
+    <!--            <scope>test</scope>-->
+    <!--            <exclusions>-->
+    <!--                <exclusion>-->
+    <!--                    <groupId>org.junit.vintage</groupId>-->
+    <!--                    <artifactId>junit-vintage-engine</artifactId>-->
+    <!--                </exclusion>-->
+    <!--            </exclusions>-->
+    <!--        </dependency>-->
+    <!--        <dependency>-->
+    <!--            <groupId>org.apache.tomcat.embed</groupId>-->
+    <!--            <artifactId>tomcat-embed-jasper</artifactId>-->
+    <!--            <version>8.5.20</version>-->
+    <!--        </dependency>-->
+    <!--        <dependency>-->
+    <!--            <groupId>javax.servlet</groupId>-->
+    <!--            <artifactId>jstl</artifactId>-->
+    <!--        </dependency>-->
+
+    <!--        <dependency>-->
+    <!--            <groupId>org.mybatis.spring.boot</groupId>-->
+    <!--            <artifactId>mybatis-spring-boot-starter</artifactId>-->
+    <!--            <version>1.3.0</version>-->
+    <!--        </dependency>-->
+    <!--        &lt;!&ndash;mysql数据库&ndash;&gt;-->
+    <!--        <dependency>-->
+    <!--            <groupId>mysql</groupId>-->
+    <!--            <artifactId>mysql-connector-java</artifactId>-->
+    <!--        </dependency>-->
+    <!--        &lt;!&ndash;连接池&ndash;&gt;-->
+    <!--        <dependency>-->
+    <!--            <groupId>com.alibaba</groupId>-->
+    <!--            <artifactId>druid</artifactId>-->
+    <!--            <version>1.0.29</version>-->
+    <!--        </dependency>-->
+
+    <!--        <dependency>-->
+    <!--            <groupId>commons-dbcp</groupId>-->
+    <!--            <artifactId>commons-dbcp</artifactId>-->
+    <!--            <version>1.4</version>-->
+    <!--        </dependency>-->
+    <!--        &lt;!&ndash;文件上传、下载&ndash;&gt;-->
+    <!--        <dependency>-->
+    <!--            <groupId>commons-fileupload</groupId>-->
+    <!--            <artifactId>commons-fileupload</artifactId>-->
+    <!--            <version>1.4</version>-->
+    <!--        </dependency>-->
+
+    <!--        &lt;!&ndash;日志&ndash;&gt;-->
+    <!--        <dependency>-->
+    <!--            <groupId>log4j</groupId>-->
+    <!--            <artifactId>log4j</artifactId>-->
+    <!--            <version>${log4j.version}</version>-->
+    <!--        </dependency>-->
+
+    <!--        <dependency>-->
+    <!--            <groupId>org.springframework.boot</groupId>-->
+    <!--            <artifactId>spring-boot-starter-aop</artifactId>-->
+    <!--        </dependency>-->
+
+    <!--        &lt;!&ndash;    解析切入点表达式 &ndash;&gt;-->
+    <!--        <dependency>-->
+    <!--            <groupId>org.aspectj</groupId>-->
+    <!--            <artifactId>aspectjweaver</artifactId>-->
+    <!--            <version>${aspectjweaver.version}</version>-->
+    <!--        </dependency>-->
+
+    <!--        &lt;!&ndash;jstl标签依赖的jar包start &ndash;&gt;-->
+    <!--        <dependency>-->
+    <!--            <groupId>javax.servlet</groupId>-->
+    <!--            <artifactId>jstl</artifactId>-->
+    <!--            <version>1.2</version>-->
+    <!--        </dependency>-->
+
+    <!--        <dependency>-->
+    <!--            <groupId>javax.servlet</groupId>-->
+    <!--            <artifactId>servlet-api</artifactId>-->
+    <!--            <version>2.5</version>-->
+    <!--        </dependency>-->
+    <!--    </dependencies>-->
+
+    <dependencies>
+        <!--自动帮我们引入了web模块开发需要的相关jar包-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <!--自动帮我们引入了tomcat模块开发需要的相关jar包-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <!--文件上传下载 -->
+        <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+            <version>1.4</version>
+        </dependency>
+        <!--内嵌tomcat-->
+        <dependency>
+            <groupId>org.apache.tomcat.embed</groupId>
+            <artifactId>tomcat-embed-jasper</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <!--jstl标签依赖的jar包-->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+        </dependency>
+        <!--servlet访问jsp-->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.1.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <!--自动帮我们引入了mybatis模块开发需要的相关jar包-->
+        <dependency>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
+            <version>1.3.0</version>
+        </dependency>
+        <!--切面-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
+        <!--数据库-->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+        <!--连接池-->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid</artifactId>
+            <version>1.0.29</version>
+        </dependency>
+        <!--json-->
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.8.6</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.junit.vintage</groupId>
+                    <artifactId>junit-vintage-engine</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+        <resources>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.xml</include>
+                </includes>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+
+
+    </build>
+
+</project>

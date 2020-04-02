@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--对应接口全路径名-->
+<mapper namespace="com.great.dao.DocumentDao">
+
+    <select id="findDocumentType" resultType="com.great.javabean.DocumentType" >
+        select * from documenttype
+    </select>
+
+    <insert id="insertInfByUid" parameterType="com.great.javabean.DocumentType" >
+        insert into document(document_head, document_synopsis, document_type_id, document_integral, document_date, document_state, document_down_num, user_id)
+        values (
+                #{document_head},
+                #{document_synopsis},
+                #{document_type_id},
+                #{document_integral},
+                #{document_date},
+                #{document_state},
+                #{document_down_num},
+                #{user_id}
+               );
+    </insert>
+
+
+    <select id="getDocumentTbl" resultType="com.great.javabean.Document" parameterType="java.util.Map">
+        select *
+        from document
+        <where>
+            <if test="document_head!=null">
+                document_head like concat('%',#{document_head},'%')
+            </if>
+        </where>
+        limit #{minlimit} , #{maxlimit}
+    </select>
+
+    <select id="getDocumentNum" resultType="java.lang.Integer" parameterType="java.util.Map">
+        select count(*)
+        from document
+        <where>
+            <if test="document_head!=null">
+                document_head like concat('%',#{document_head},'%')
+            </if>
+        </where>
+        limit #{minlimit} , #{maxlimit}
+    </select>
+
+    <select id="getUserDocumentTblNum" resultType="java.lang.Integer" parameterType="java.util.Map">
+        select count(*)
+        from document
+        <where>
+            <if test="state!=null">
+                and document_state like concat('%',#{document_state},'%')
+            </if>
+            <if test="document_type_id!=null">
+                and document_type_id like concat('%',#{document_type_id},'%')
+            </if>
+            <if test="user_id!=null">
+                and  user_id=#{user_id}
+            </if>
+        </where>
+        limit #{minlimit} , #{maxlimit}
+    </select>
+
+    <select id="getUserDocumentTbl" resultType="com.great.javabean.Document" parameterType="java.util.Map">
+        select *
+        from document
+        <where>
+            <if test="document_state!=null">
+                and document_state like concat('%',#{document_state},'%')
+            </if>
+            <if test="document_type_id!=null">
+                and document_type_id like concat('%',#{document_type_id},'%')
+            </if>
+            <if test="user_id!=null">
+                and  user_id=#{user_id}
+            </if>
+        </where>
+        limit #{minlimit} , #{maxlimit}
+    </select>
+
+
+</mapper>

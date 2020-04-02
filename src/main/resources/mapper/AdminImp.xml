@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--对应接口全路径名-->
+<mapper namespace="com.great.dao.AdminDao">
+
+
+    <select id="adminLogin" resultType="com.great.javabean.Admin" parameterType="java.util.Map">
+        select * from admin where ADMINACCOUNT=#{id} and ADMINPWD=#{pwd}
+    </select>
+
+    <select id="getAdminAndRole" resultMap="AdminMap" parameterType="java.util.Map">
+        select * from admin where ADMINID=#{id}
+    </select>
+
+    <select id="getRole" resultType="Role" parameterType="java.lang.Integer">
+        select * from role where role_id=#{adminId}
+    </select>
+
+    <select id="getMenu" resultType="com.great.javabean.Menu" parameterType="java.lang.Integer">
+        select * from menu where menu_id in (select menu_id from rolemenu where role_id=#{roleId})
+    </select>
+
+    <!--重新封装结果-->
+    <resultMap  type="com.great.javabean.Admin" id="AdminMap">
+        <!--字段名  对应  类属性-->
+        <association property="role" javaType="Role" select="getRole" column="role_id">
+
+        </association>
+        <collection property="menus"  select="getMenu" column="role_id" ofType="com.great.javabean.Menu">
+            <result column="menu_id" property="menu_id"/>
+            <result column="menu_name" property="menu_name"/>
+            <result column="menu_father" property="menu_father"/>
+            <result column="menu_url" property="menu_url"/>
+        </collection>
+
+    </resultMap>
+
+    <insert id="insertLog" parameterType="java.util.Map">
+        insert into log (log_operator, log_operator_role, log_operator_ip, log_type, log_content, log_result, log_date)
+        VALUES(#{log_operator},#{log_operator_role}, #{log_operator_ip}, #{log_type}, #{log_content}, #{log_result}, #{log_date} )
+    </insert>
+
+
+    <select id="getAllMenu" resultType="com.great.javabean.Menu" >
+        select * from menu
+    </select>
+
+    <select id="getAllRole" resultType="com.great.javabean.Role">
+        select * from role
+    </select>
+
+    <select id="getRoleMenu" resultType="com.great.javabean.Menu" parameterType="java.lang.Integer">
+        select * from menu where menu_id in (select menu_id from rolemenu where role_id=#{roleId})
+    </select>
+
+
+    <delete id="deleteMenuByRoleId" parameterType="java.lang.Integer">
+        delete from rolemenu where role_id=#{roleId}
+    </delete>
+
+    <insert id="insertMenuAndRoleId" parameterType="java.util.Map">
+        insert into rolemenu (role_id, menu_id) values
+        <foreach collection="numList" item="item" index="index" separator=",">
+            (#{roleId},#{item})
+        </foreach>
+    </insert>
+
+    <select id="findDocumentByUid" resultType="com.great.javabean.Document" parameterType="java.util.Map">
+        select *
+        from document
+        <where>
+            <if test="document_head!=null">
+                and document_head like concat('%',#{document_head},'%')
+            </if>
+            <if test="document_type_name!=null">
+                and document_type_name like concat('%',#{document_type_name},'%')
+            </if>
+            <if test="user_name!=null">
+                and  user_name=#{user_name}
+            </if>
+        </where>
+        limit #{minlimit} , #{maxlimit}
+    </select>
+
+    <select id="findDocumentCount" resultType="java.lang.Integer" parameterType="java.util.Map">
+        select count(*)
+        from document
+        <where>
+            <if test="document_head!=null">
+                and document_head like concat('%',#{document_head},'%')
+            </if>
+            <if test="document_type_name!=null">
+                and document_type_name like concat('%',#{document_type_name},'%')
+            </if>
+            <if test="user_name!=null">
+                and  user_name=#{user_name}
+            </if>
+        </where>
+        limit #{minlimit} , #{maxlimit}
+    </select>
+
+</mapper>

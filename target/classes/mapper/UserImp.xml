@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--对应接口全路径名-->
+<mapper namespace="com.great.dao.UserDao">
+
+
+    <select id="login" resultType="com.great.javabean.User" parameterType="java.util.Map">
+        select * from user where user_account=#{id} and user_pwd=#{pwd}
+    </select>
+
+    <select id="testUserAccount" resultType="com.great.javabean.User" parameterType="java.util.Map">
+        select * from user where user_account=#{user_account}
+    </select>
+
+    <insert id="addUserByReg" parameterType="java.util.Map">
+        insert into user (user_account, user_pwd, user_sex, user_age, user_date, user_education, user_state, user_phone, user_emil, user_up, user_down)
+        values
+        (
+         #{user_account}
+        ,#{user_pwd}
+        ,#{user_sex}
+        ,#{user_age}
+        ,#{user_date}
+        ,#{user_education}
+        ,1
+        ,#{user_phone}
+        ,#{user_emil}
+        ,0
+        ,0
+        )
+    </insert>
+
+    <select id="getUserCount" resultType="java.lang.Integer">
+        select count(*)  from user
+        <where>
+
+            <if test="userName!=null">
+                and  user_name like concat('%',#{user_name},'%')
+            </if>
+            <if test="userSex!=null">
+                and user_sex like concat('%',#{user_sex},'%')
+            </if>
+        </where>
+    </select>
+
+    <select id="getUserTbl" resultType="com.great.javabean.User" parameterType="java.util.Map">
+        select * from user
+        <where>
+            <if test="user_name!=null">
+                and  user_name like concat('%',#{user_name},'%')
+            </if>
+            <if test="user_sex!=null">
+                and user_sex like concat('%',#{user_sex},'%')
+            </if>
+        </where>
+        limit #{minlimit} , #{maxlimit}
+    </select>
+
+    <select id="getUserMsg" resultType="com.great.javabean.User" parameterType="java.lang.Integer">
+        select * from user where user_id=#{user_id}
+    </select>
+
+    <insert id="addUserByAdminAdd" parameterType="com.great.javabean.User">
+        insert into user (user_account, user_pwd, user_sex, user_age, user_date, user_state, user_up,user_down)
+        values (
+                #{user_account}
+                ,#{user_pwd}
+                ,#{user_sex}
+                ,#{user_age}
+                ,#{user_date}
+                ,1
+                ,0
+                ,0
+               )
+    </insert>
+
+    <update id="updateUser" parameterType="com.great.javabean.User">
+        update user
+        <set>
+            <if test="user_account!=null">
+                user_account=#{user_account}
+            </if>
+            <if test="user_pwd!=null">
+                ,user_pwd=#{user_pwd}
+            </if>
+            <if test="user_sex!=null">
+                ,user_sex=#{user_sex}
+            </if>
+            <if test="user_age!=null">
+                ,user_age=#{user_age}
+            </if>
+        </set>
+        where user_id=#{user_id}
+    </update>
+
+    <delete id="deleteUser" parameterType="java.lang.Integer">
+        delete from user where user_id=#{user_id}
+    </delete>
+
+
+    <select id="getScore" resultType="com.great.javabean.Score" parameterType="java.util.Map">
+        select *
+        from score
+        <where>
+            user_id=#{user_id}
+        </where>
+        limit #{minlimit} , #{maxlimit}
+    </select>
+
+    <select id="getScoreNum" resultType="java.lang.Integer" parameterType="java.util.Map">
+        select count(*)
+        from score
+        <where>
+            user_id=#{user_id}
+        </where>
+            limit #{minlimit} , #{maxlimit}
+    </select>
+
+    <select id="checkUserScore" resultType="java.lang.Integer" parameterType="java.util.Map">
+        select *
+        from user
+        where user_id=#{user_id} and user_integral>#{document_integral};
+    </select>
+
+
+
+
+</mapper>
